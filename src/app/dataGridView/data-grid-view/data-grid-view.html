@@ -1,0 +1,98 @@
+<div id="data-grid-demo">
+    <div id="exportContainer">
+        <dx-button text="Export .Xlsx" icon="xlsxfile" (onClick)="exportGrids($event, 'xlsx')"></dx-button>
+        <dx-button  text="Export .Csv" icon="csvfile" (onClick)="exportGrids($event, 'csv')"></dx-button>
+    </div>
+            
+    <dx-data-grid id="gridContainer"
+                  #testDataGrid
+                  [dataSource]="dataSource"
+                  [allowColumnResizing]="true"
+                  [columnMinWidth]="50"         
+                  [showBorders]="true"
+                  [allowColumnReordering]="true"
+                  (onEditingStart)="logEvent($event)"
+                  (onInitNewRow)="logEvent($event)"
+                  (onRowInserting)="insertRow($event)"
+                  (onRowUpdating)="rowUpdate($event)"
+                  (onRowUpdated)="logEvent('RowUpdated')"
+                  (onRowRemoving)="deleteRow($event)"
+                  (onOptionChanged)="onOptionChanged($event)"
+                  (onRowInserted)="logEvent($event)">
+
+                  <dxo-grouping [contextMenuEnabled]="true" expandMode="rowClick"></dxo-grouping>
+                  <dxo-group-panel [visible]="true" emptyPanelText=""></dxo-group-panel>
+
+                  <!-- load panel -->
+                  <dxo-load-panel [enabled]="true"></dxo-load-panel>
+
+                  <!-- pagination -->
+                  <dxo-pager [showPageSizeSelector]="true"
+                             [allowedPageSizes]="[5, 10, 20]"
+                             [showNavigationButtons]="true"
+                             [showInfo]="true"></dxo-pager>
+
+                  <!-- filtering -->
+                  <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                  <dxo-filter-builder></dxo-filter-builder>
+                  <dxo-filter-builder-popup></dxo-filter-builder-popup>                    
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+        <dxo-editing mode="batch"
+                     [selectTextOnEditStart]="selectTextOnEditStart"
+                     [startEditAction]="startEditAction"
+                     [allowUpdating]="true"
+                     [allowDeleting]="true"
+                     [allowAdding]="true">
+        </dxo-editing>
+
+        <!-- Search -->
+        <dxo-search-panel #searchPanel [visible]="true"></dxo-search-panel>
+
+        <!-- Select -->
+        <dxo-selection mode="multiple" [selectAllMode]="allMode" [showCheckBoxesMode]="checkBoxesMode"></dxo-selection>
+        <dxi-column [allowSearch]="true" dataField="id" caption="Id" [width]="70" [allowEditing]="false" dataType="number"></dxi-column>
+        <!-- Data -->
+        <dxi-column dataField="firstName" caption="First Name" dataType="string"></dxi-column>
+        <dxi-column dataField="lastName" caption="Last Name" dataType="string"></dxi-column>
+        <dxi-column dataField="combinedCandidateName" caption="Combined Candidate Name" dataType="string"></dxi-column>
+        <dxi-column dataField="dateCreated" caption="Date Created" dataType="date"></dxi-column>
+        <dxi-column dataField="lastContact" caption="Last Contact Date" dataType="date"></dxi-column>
+        <dxi-column dataField="recruiter" caption="Recruiter" dataType="string"></dxi-column>
+        <dxi-column dataField="email" caption="Email" dataType="string"></dxi-column>
+        <dxi-column dataField="mobile" caption="Mobile" dataType="string"></dxi-column>
+        <dxi-column dataField="recrModus" caption="RecrModus" dataType="string"></dxi-column>
+        <dxi-column dataField="level" caption="Level" dataType="string"></dxi-column>
+        <dxi-column dataField="actualJobTitle" caption="ActualJobTitle" dataType="string"></dxi-column>
+        <dxi-column dataField="actualCompany" caption="ActualCompany" dataType="string"></dxi-column>
+        <dxi-column dataField="notes" caption="Notes" dataType="string"></dxi-column>
+
+        <!-- hardcoded data -->
+        <dxi-column dataField="stateId"
+                    caption="State"
+                    [width]="125">
+            <dxo-lookup [dataSource]="states"
+                        displayExpr="name"
+                        valueExpr="id">
+            </dxo-lookup>
+        </dxi-column>
+    </dx-data-grid>
+
+    <div class="options">
+        <div class="caption">Options</div>
+        <div class="option">
+            <dx-check-box [(value)]="selectTextOnEditStart"
+                          text="Select Text on Edit Start">
+            </dx-check-box>
+        </div>
+        <div class="option">
+            <span>Start Edit Action</span>
+            <dx-select-box [items]="['click', 'dblClick']"
+                           [(value)]="startEditAction">
+            </dx-select-box>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
