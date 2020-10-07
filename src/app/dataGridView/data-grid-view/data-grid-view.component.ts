@@ -92,7 +92,7 @@ export class DataGridViewComponent implements OnInit {
     }
 
     //search method. TODO: handle exception from server and status code
-    rowUpdate(e){
+    rowUpdate(e) {
       let currentRowData = Object.assign(new Candidates(), e.oldData);
       currentRowData = Object.assign(currentRowData, e.newData);
 
@@ -138,18 +138,18 @@ export class DataGridViewComponent implements OnInit {
           worksheet: priceSheet,
           component: context.testDataGrid.instance,
           selectedRowsOnly: true,
-          topLeftCell: docType == 'xlsx' ?  { row: 4, column: 2 } : null,
+          topLeftCell: docType === 'xlsx' ?  { row: 4, column: 2 } : null,
           customizeCell: function(options) {
             setAlternatingRowsBackground(options.gridCell, options.excelCell)
           }}).then(function() {   
             let fileExtension;
             let formattedWorkcBook;
 
-            if(docType == 'xlsx'){
+            if(docType === 'xlsx'){
               fileExtension = '.xlsx'
               formattedWorkcBook = workbook.xlsx;
             }
-            if(docType == 'csv'){
+            if(docType === 'csv'){
               fileExtension = '.csv'
               formattedWorkcBook = workbook.csv;
             }
@@ -161,4 +161,3 @@ export class DataGridViewComponent implements OnInit {
           })
         }
       }
- 
