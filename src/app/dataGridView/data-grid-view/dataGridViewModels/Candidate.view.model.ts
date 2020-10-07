@@ -1,5 +1,5 @@
 //candidates model
-export class Candidates {
+export class Candidate {
     Id: number;
     FirstName: string;
     LastName: string;
@@ -15,10 +15,4 @@ export class Candidates {
     ActualCompany: string;
     Notes: string;
     StateId: number;
-}
-
-//extra data like as related table (hardcoded)
-export class State {
-    Id: number;
-    Name: string;
 }

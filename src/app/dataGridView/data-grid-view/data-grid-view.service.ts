@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { State } from './data-grid-view.models';
 
 @Injectable()
 export class Service {
@@ -52,7 +51,7 @@ export class Service {
     sendRequest(url: string, method: string = "GET", httpParams: any): any {
         let httpOptions;
         let result;
-      
+        
         switch(method.toUpperCase()) {
             case "GET":
                 httpOptions = { params: httpParams };
