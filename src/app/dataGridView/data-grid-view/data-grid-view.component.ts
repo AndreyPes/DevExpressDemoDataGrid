@@ -1,7 +1,7 @@
-import { Candidates } from './data-grid-view.models';
+import { Candidate } from './dataGridViewModels/Candidate.view.model';
 import { Component, OnInit } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
-import { State } from './data-grid-view.models';
+import { State } from './dataGridViewModels/State.view.model';
 import { ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { exportDataGrid } from 'devextreme/excel_exporter';
@@ -68,7 +68,7 @@ export class DataGridViewComponent implements OnInit {
 
     //insert new row: TODO: handle exception from server and status code
     insertRow(e) {
-      this.service.addCandidate(Object.assign(new Candidates(), e.data)).then((response)=>{
+      this.service.addCandidate(Object.assign(new Candidate(), e.data)).then((response)=>{
         this.refresh();
       });
     }
@@ -93,7 +93,7 @@ export class DataGridViewComponent implements OnInit {
 
     //search method. TODO: handle exception from server and status code
     rowUpdate(e) {
-      let currentRowData = Object.assign(new Candidates(), e.oldData);
+      let currentRowData = Object.assign(new Candidate(), e.oldData);
       currentRowData = Object.assign(currentRowData, e.newData);
 
       this.service.editCandidate(currentRowData).then((response)=>{
@@ -139,9 +139,9 @@ export class DataGridViewComponent implements OnInit {
           component: context.testDataGrid.instance,
           selectedRowsOnly: true,
           topLeftCell: docType === 'xlsx' ?  { row: 4, column: 2 } : null,
-          customizeCell: function(options) {
+          customizeCell: (options) => {
             setAlternatingRowsBackground(options.gridCell, options.excelCell)
-          }}).then(function() {   
+          }}).then(() => {   
             let fileExtension;
             let formattedWorkcBook;
 
@@ -154,7 +154,7 @@ export class DataGridViewComponent implements OnInit {
               formattedWorkcBook = workbook.csv;
             }
           
-            formattedWorkcBook.writeBuffer().then(function(buffer) {
+            formattedWorkcBook.writeBuffer().then((buffer) => {
               saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'CandidatesReport' + fileExtension);
             });
             
