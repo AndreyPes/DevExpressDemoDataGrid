@@ -70,6 +70,10 @@ export class Service {
                 httpOptions = { params: httpParams };
                 result = this.http.delete(url, httpOptions);
                 break;
+            default:
+                httpOptions = { params: httpParams };
+                result = this.http.get(url, httpOptions);
+                break;
         }
       
         return result
