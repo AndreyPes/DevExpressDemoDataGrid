@@ -25,20 +25,23 @@
 
                   <!-- load panel -->
                   <dxo-load-panel [enabled]="true"></dxo-load-panel>
-
+                  <!-- scrolling -->
+                  <!-- <dxo-scrolling mode="virtual"></dxo-scrolling> -->
                   <!-- pagination -->
                   <dxo-pager [showPageSizeSelector]="true"
                              [allowedPageSizes]="[5, 10, 20]"
                              [showNavigationButtons]="true"
                              [showInfo]="true"></dxo-pager>
-
+                             <!-- [infoText]="Page #{0}. Total: {1} ({2} items)" -->
+                             <!-- <dxo-paging [pageSize]="5" [pageIndex]="2"></dxo-paging> -->
                   <!-- filtering -->
                   <dxo-filter-panel [visible]="true"></dxo-filter-panel>
                   <dxo-filter-builder></dxo-filter-builder>
                   <dxo-filter-builder-popup></dxo-filter-builder-popup>                    
                   <dxo-filter-row [visible]="true"></dxo-filter-row>
                   <dxo-header-filter [visible]="true"></dxo-header-filter>
-
+                  
+                  <!-- https://js.devexpress.com/Documentation/Guide/Widgets/DataGrid/Editing/ -->
         <dxo-editing mode="batch"
                      [selectTextOnEditStart]="selectTextOnEditStart"
                      [startEditAction]="startEditAction"
@@ -49,11 +52,16 @@
 
         <!-- Search -->
         <dxo-search-panel #searchPanel [visible]="true"></dxo-search-panel>
-
         <!-- Select -->
-        <dxo-selection mode="multiple" [selectAllMode]="allMode" [showCheckBoxesMode]="checkBoxesMode"></dxo-selection>
-        <dxi-column [allowSearch]="true" dataField="id" caption="Id" [width]="70" [allowEditing]="false" dataType="number"></dxi-column>
         <!-- Data -->
+        <dxo-selection mode="multiple" [selectAllMode]="allMode" [showCheckBoxesMode]="checkBoxesMode"></dxo-selection>
+        <dxi-column *ngFor="let column of columns" dataField="{{column.dataField}}"
+                                                   caption="{{column.caption}}"
+                                                   dataType="{{column.dataType}}" 
+                                                   [width] = "column.width"
+                                                   [allowSearch] = "column.allowSearch"
+                                                   [allowEditing] = "column.allowEditing"></dxi-column>
+        <!-- <dxi-column [allowSearch]="true" dataField="id" caption="Id" [width]="70" [allowEditing]="false" dataType="number"></dxi-column>
         <dxi-column dataField="firstName" caption="First Name" dataType="string"></dxi-column>
         <dxi-column dataField="lastName" caption="Last Name" dataType="string"></dxi-column>
         <dxi-column dataField="combinedCandidateName" caption="Combined Candidate Name" dataType="string"></dxi-column>
@@ -66,7 +74,7 @@
         <dxi-column dataField="level" caption="Level" dataType="string"></dxi-column>
         <dxi-column dataField="actualJobTitle" caption="ActualJobTitle" dataType="string"></dxi-column>
         <dxi-column dataField="actualCompany" caption="ActualCompany" dataType="string"></dxi-column>
-        <dxi-column dataField="notes" caption="Notes" dataType="string"></dxi-column>
+        <dxi-column dataField="notes" caption="Notes" dataType="string"></dxi-column> -->
 
         <!-- hardcoded data -->
         <dxi-column dataField="stateId"
@@ -95,4 +103,4 @@
     </div>
 </div>
 
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->

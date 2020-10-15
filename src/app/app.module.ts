@@ -5,21 +5,27 @@ import { AppComponent } from './app.component';
 import { DataGridViewComponent } from './datagridview/data-grid-view/data-grid-view.component';
 import { DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxCheckBoxModule, DxTabPanelModule } from 'devextreme-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     DataGridViewComponent,
   ],
+  // exports: [
+  //   DataGridViewComponent
+  // ],
   imports: [
     BrowserModule,
+    //RouterModule.forRoot(appRoutes),
     AppRoutingModule,
     DxDataGridModule,
     DxButtonModule,
     DxSelectBoxModule,
     DxCheckBoxModule,
     DxTabPanelModule,
-    HttpClientModule
+    HttpClientModule,
+    //DataGridViewComponent
   ],
   providers: [],
   bootstrap: [

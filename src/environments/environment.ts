@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseurl: 'http://4c1e3d2d5f9a.ngrok.io/api/', 
+  baseurl: 'http://localhost:8070/api/', 
   getUrl: 'data/get',
   getStatesUrl: 'data/states',
   postUrl: 'data/insert',

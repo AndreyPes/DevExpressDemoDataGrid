@@ -42,7 +42,8 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background-color: #1976d2;
+    /* background-color: #1976d2; */
+    background-color: #009688;
     color: white;
     font-weight: 600;
   }
@@ -128,7 +129,8 @@
   }
 
   .card.highlight-card {
-    background-color: #1976d2;
+    /* background-color: #1976d2; */
+    background-color: #009688;
     color: white;
     font-weight: 600;
     border: none;
@@ -530,7 +532,14 @@
   <!-- <div class="demo-container" style="width: 50%;
                                     margin-left: 25%;
                                     overflow-x: auto;"> -->
-    <DataGridViewComponent></DataGridViewComponent>
+                                    <body class="dx-viewport">
+    <DataGridViewComponent [DataGridColumns]="columns"
+                           [DataGridDataSource]="dataSource"
+                           [States]="states"
+                           [AllMode]="allMode"
+                           [CheckBoxesMode]="checkBoxesMode"
+                           [StartEditAction]="startEditAction"></DataGridViewComponent>
+                          </body>
   </div>
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

@@ -1,5 +1,5 @@
 import { Candidate } from './dataGridViewModels/Candidate.view.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import DataSource from 'devextreme/data/data_source';
 import { State } from './dataGridViewModels/State.view.model';
 import { ViewChild } from '@angular/core';
@@ -8,7 +8,7 @@ import { exportDataGrid } from 'devextreme/excel_exporter';
 import * as ExcelProper from "exceljs";
 import saveAs from 'file-saver';
 import { Service } from './data-grid-view.service';
-import { state } from '@angular/animations';
+import { DatagridColumnViewModel } from './dataGridViewModels/Datagrid.column.view.model';
 
 @Component({
     selector: 'DataGridViewComponent',
@@ -18,36 +18,49 @@ import { state } from '@angular/animations';
 })
 
 export class DataGridViewComponent implements OnInit {
-    states: State[];
-    dataSource: any = {};
-    allMode: string;
-    checkBoxesMode: string;
-    startEditAction: string = "click";
-    selectTextOnEditStart: boolean = true;
+    //dataSource: any = {};
+    
+    //startEditAction: string = "click";
     @ViewChild('testDataGrid', { static: false }) testDataGrid: DxDataGridComponent;
     @ViewChild('searchPanel', { static: false }) searchPanel: DxDataGridComponent;
-
+    @Input('DataGridColumns') columns: DatagridColumnViewModel[];
+    @Input('DataGridDataSource') dataSource: DataSource;
+    @Input('SelectTextOnEditStart') selectTextOnEditStart: boolean = true;
+    @Input('States') states: State[];
+    @Input('AllMode') allMode: string;
+    @Input('CheckBoxesMode') checkBoxesMode: string;
+    @Input('StartEditAction') startEditAction: string = "click";
     //constructor, set service to this component
     constructor(private service: Service) {
-
     }
 
     //on component init
     ngOnInit() {
-        this.service.getCandidatesData().then((data)=>{
-          this.dataSource = new DataSource({
-            store: data,
-            paginate: true,
-            pageSize: 5,
-          })
-        }).then(()=>{
-          this.allMode = 'allPages';
-          this.checkBoxesMode = 'onClick'
-        }).then(()=>{
-          this.service.getStates().then((data)=>{
-            this.states = data;
-          })
-        });
+      //this.dataSource.loadOptions({totalCount:10})
+    //   this.dataGrid.instance.filter([
+    //     [ "Cost", ">", 1000 ],
+    //     "and",
+    //     [ "Cost", "<=", 2000 ]
+        // this.service.getCandidatesData().then((data)=>{
+        //   this.dataSource = new DataSource({
+        //     store: data,
+        //     paginate: true,
+        //     pageSize: 5,
+        //   })
+        // }).then(()=>{
+        //   this.allMode = 'allPages';
+        //   this.checkBoxesMode = 'onClick'
+        // }).then(()=>{
+        //   this.service.getStates().then((data)=>{
+        //     this.states = data;
+        //   })
+        // });
+ 
+        // console.log('look at me');
+        // console.log(this.columns);
+        // this.dataSource
+        // this.columns.push( new DevExpress.ui.dxDataGridColumn)
+        // this.testDataGrid.columns();
     }
 
     //Track events
@@ -57,10 +70,18 @@ export class DataGridViewComponent implements OnInit {
 
     //Track input in search field
     onOptionChanged(e) {
+      console.log(e.name);
+      // filter array
+      console.log('filter array');
+      console.log(this.testDataGrid.filterValue);
+      
       switch(e.name) {
         case "searchPanel":
           this.serchGrid(e.value);
             break;
+        case "filterValue":
+          console.log(e);
+          console.log('SearchFilter');    
         default:
           console.log('default statment');
       }
